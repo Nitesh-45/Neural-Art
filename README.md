@@ -1,11 +1,7 @@
-from pathlib import Path
-
-readme = r'''<div align="center">
-
-# StyleMorph
+# Neural-Art
 ### AI-Powered Neural Style Transfer with Adaptive Instance Normalization
 
-Transform the visual content of one image using the artistic style of another. StyleMorph combines a VGG-based feature encoder, Adaptive Instance Normalization (AdaIN), and a trainable decoder in a Flask web application.
+Transform the visual content of one image using the artistic style of another. Neural-Art combines a VGG-based feature encoder, Adaptive Instance Normalization (AdaIN), and a trainable decoder in a Flask web application.
 
 </div>
 
@@ -13,7 +9,7 @@ Transform the visual content of one image using the artistic style of another. S
 
 ## Overview
 
-StyleMorph is an image-to-image style transfer application built with **PyTorch** and **Flask**. It takes two inputs:
+Neural-Art is an image-to-image style transfer application built with **PyTorch** and **Flask**. It takes two inputs:
 
 - **Content image:** the photograph or scene whose structure should be preserved.
 - **Style image:** the artwork or image whose visual appearance should be transferred.
@@ -202,7 +198,7 @@ python train.py \
   --content_dir ./content_data \
   --style_dir ./style_data \
   --vgg ./vgg_normalised.pth \
-  --experiment stylemorph_run \
+  --experiment Neural-Art_run \
   --batch_size 16 \
   --epochs 200 \
   --lr 0.0001 \
@@ -266,11 +262,8 @@ L_{\text{total}}= \lambda_c L_{\text{content}}+\lambda_s L_{\text{style}}
 
 <div align="center">
 
-**StyleMorph** · Neural Style Transfer with PyTorch and AdaIN
+**Neural-Art** · Neural Style Transfer with PyTorch and AdaIN
 
 </div>
-'''
-path = Path("/mnt/data/README.md")
-path.write_text(readme, encoding="utf-8")
-print(f"Created: {path}")
-print(f"Size: {path.stat().st_size:,} bytes")
+
+
