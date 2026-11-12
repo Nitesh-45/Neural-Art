@@ -1,6 +1,6 @@
-content_dir: /home/ubuntu/Desktop/AdaIN-style/coco2017test
-style_dir: /home/ubuntu/Desktop/AdaIN-style/style_dataset
-vgg: models/vgg_normalised.pth
+content_dir: D:\Python Notes\MAJOR PROJECT MACHINE LEARNING\Neural Style Transfer\NST_Code\content_data
+style_dir: D:\Python Notes\MAJOR PROJECT MACHINE LEARNING\Neural Style Transfer\NST_Code\style_data
+vgg: D:\Python Notes\MAJOR PROJECT MACHINE LEARNING\Neural Style Transfer\NST_Code\vgg_normalised.pth
 experiment: content1_style5
 gpu: 0
 final_size: 256
