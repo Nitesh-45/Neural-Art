@@ -1,7 +1,6 @@
 import torch.nn as nn
 import torch
 
-
 class VGGEncoder(nn.Module):
     def __init__(self, vgg_path):
         super(VGGEncoder, self).__init__()
@@ -59,7 +58,7 @@ class VGGEncoder(nn.Module):
             nn.ReLU(),  # relu5-3
             nn.ReflectionPad2d((1, 1, 1, 1)),
             nn.Conv2d(512, 512, (3, 3)),
-            nn.ReLU(),  # relu5-4
+            nn.ReLU()  # relu5-4
         )
         self.vgg.load_state_dict(torch.load(vgg_path))
         self.vgg = nn.Sequential(*list(self.vgg.children())[:31])
@@ -69,7 +68,7 @@ class VGGEncoder(nn.Module):
         self.enc_3 = nn.Sequential(*enc_layers[11:18])
         self.enc_4 = nn.Sequential(*enc_layers[18:31])
 
-        for name in ["enc_1", "enc_2", "enc_3", "enc_4"]:
+        for name in ['enc_1', 'enc_2', 'enc_3', 'enc_4']:
             for param in getattr(self, name).parameters():
                 param.requires_grad = False
 
@@ -90,7 +89,7 @@ class Decoder(nn.Module):
             nn.ReflectionPad2d((1, 1, 1, 1)),
             nn.Conv2d(512, 256, (3, 3)),
             nn.ReLU(),
-            nn.Upsample(scale_factor=2, mode="nearest"),
+            nn.Upsample(scale_factor=2, mode='nearest'),
             nn.ReflectionPad2d((1, 1, 1, 1)),
             nn.Conv2d(256, 256, (3, 3)),
             nn.ReLU(),
@@ -103,20 +102,25 @@ class Decoder(nn.Module):
             nn.ReflectionPad2d((1, 1, 1, 1)),
             nn.Conv2d(256, 128, (3, 3)),
             nn.ReLU(),
-            nn.Upsample(scale_factor=2, mode="nearest"),
+            nn.Upsample(scale_factor=2, mode='nearest'),
             nn.ReflectionPad2d((1, 1, 1, 1)),
             nn.Conv2d(128, 128, (3, 3)),
             nn.ReLU(),
             nn.ReflectionPad2d((1, 1, 1, 1)),
             nn.Conv2d(128, 64, (3, 3)),
             nn.ReLU(),
-            nn.Upsample(scale_factor=2, mode="nearest"),
+            nn.Upsample(scale_factor=2, mode='nearest'),
             nn.ReflectionPad2d((1, 1, 1, 1)),
             nn.Conv2d(64, 64, (3, 3)),
             nn.ReLU(),
             nn.ReflectionPad2d((1, 1, 1, 1)),
-            nn.Conv2d(64, 3, (3, 3)),
+            nn.Conv2d(64, 3, (3, 3)),         
         )
 
     def forward(self, input):
         return self.net(input)
+
+
+
+
+

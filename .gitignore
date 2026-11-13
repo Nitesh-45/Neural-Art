@@ -6,11 +6,3 @@
 __pycache__/
 **/__pycache__/
 *.pyc
-
-# Ignore local Python environments
-myenv/
-venv/
-.venv/
-**/myenv/
-**/venv/
-**/.venv/
