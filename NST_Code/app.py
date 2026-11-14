@@ -15,6 +15,7 @@ import io
 # Import your existing AdaIN code
 from utils.models import VGGEncoder, Decoder
 from utils.utils import adaptive_instance_normalization, calc_mean_std
+from utils.model_download import ensure_model_file
 
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -39,6 +40,12 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 vgg_path = BASE_DIR / 'vgg_normalised.pth'
 decoder_path = BASE_DIR / 'experiment' / 'final_exp' / 'decoder_final.pth'
+
+VGG_URL = 'https://drive.google.com/file/d/1CasooiTI_FXIVZKDWRgSF9vy3S7mXk6-/view?usp=sharing'
+DECODER_URL = 'https://drive.google.com/file/d/1r7GevNfoV3ja9XxpQMdabZcwvNaLorsD/view?usp=sharing'
+
+ensure_model_file(vgg_path, VGG_URL, 'VGG_URL')
+ensure_model_file(decoder_path, DECODER_URL, 'DECODER_URL')
 
 encoder = VGGEncoder(str(vgg_path)).to(device)
 decoder = Decoder().to(device)

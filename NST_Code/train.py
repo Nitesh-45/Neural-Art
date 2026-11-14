@@ -5,8 +5,11 @@ import torch.optim as optim
 from pathlib import Path
 from utils.utils import *
 from utils.models import *
+from utils.model_download import ensure_model_file
 from tqdm import tqdm
 from torchvision.utils import save_image
+
+BASE_DIR = Path(__file__).resolve().parent
 
 
 def parse_arguments():
@@ -16,7 +19,7 @@ def parse_arguments():
                         help='Location of content dataset')
     parser.add_argument('--style_dir', type=str, default='/home/ubuntu/Desktop/NST_Code/style_data',
                         help='Location of style dataset')
-    parser.add_argument('--vgg', type=str, default='/home/ubuntu/Desktop/NST_Code/vgg_normalised.pth',
+    parser.add_argument('--vgg', type=str, default=str(BASE_DIR / 'vgg_normalised.pth'),
                         help='Location of pre-trained VGG')
     parser.add_argument('--experiment', type=str, default='experiment1',
                         help='Name of experiment')
@@ -96,7 +99,8 @@ def main():
     print('Number of batches in content dataset: ', len(content_dataloader))
     print('Number of batches in style dataset: ', len(style_dataloader))
     
-    encoder = VGGEncoder(args.vgg).to(device)
+    vgg_path = ensure_model_file(args.vgg, url_setting='VGG_MODEL_URL')
+    encoder = VGGEncoder(str(vgg_path)).to(device)
     decoder = Decoder().to(device)
 
     optimizer = optim.Adam(decoder.parameters(), lr=args.lr)
