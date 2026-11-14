@@ -107,7 +107,7 @@ ai-nst-project/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/shradha-khapra/ai-nst-project.git
+git clone https://github.com/Nitesh-45/ai-nst-project.git
 cd ai-nst-project
 ```
 
