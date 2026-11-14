@@ -1,4 +1,6 @@
 import os
+from pathlib import Path
+
 import torch
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory
 from flask_wtf import FlaskForm
@@ -15,9 +17,11 @@ from utils.models import VGGEncoder, Decoder
 from utils.utils import adaptive_instance_normalization, calc_mean_std
 
 
+BASE_DIR = Path(__file__).resolve().parent
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'supersecretkey'
-app.config['UPLOAD_FOLDER'] = 'static/uploads'
+app.config['UPLOAD_FOLDER'] = str(BASE_DIR / 'static' / 'uploads')
 app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg'}
 Bootstrap(app)
 
@@ -33,9 +37,12 @@ class UploadForm(FlaskForm):
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-encoder = VGGEncoder('vgg_normalised.pth').to(device)
+vgg_path = BASE_DIR / 'vgg_normalised.pth'
+decoder_path = BASE_DIR / 'experiment' / 'final_exp' / 'decoder_final.pth'
+
+encoder = VGGEncoder(str(vgg_path)).to(device)
 decoder = Decoder().to(device)
-decoder.load_state_dict(torch.load('/home/ubuntu/Desktop/NST_Code/experiment/final_exp/decoder_final.pth'))
+decoder.load_state_dict(torch.load(str(decoder_path), map_location=device))
 
 encoder.eval()
 decoder.eval()
@@ -139,7 +146,7 @@ def send_image(filename):
 
 @app.route('/examples/<path:filename>')
 def send_example(filename):
-    return send_from_directory('examples', filename)
+    return send_from_directory(str(BASE_DIR / 'examples'), filename)
 
 
 if __name__ == '__main__':
